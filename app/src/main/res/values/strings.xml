@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">cmpe133App</string>
+    <string name="editTextChooseUni">Select your university:</string>
+    <string name="radioBtnSJSU">San Jose State University</string>
+    <string name="buttonChooseDone">DONE</string>
+    <string name="radioBtnOther">Other University</string>
+    <string name="displayMessage">Congrats!</string>
 </resources>
