@@ -5,4 +5,9 @@
     <string name="buttonChooseDone">DONE</string>
     <string name="radioBtnOther">Other University</string>
     <string name="displayMessage">Congrats!</string>
+
+    <string name="lblPassword">"  Enter Your Password :"</string>
+    <string name="btn_submit">Submit</string>
+    <string name="passwordSetup">Configure your password</string>
+    <string name="confirm_pass">"  Confirm password :"</string>
 </resources>
