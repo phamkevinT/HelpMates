@@ -2,7 +2,14 @@
     <string name="app_name">cmpe133App</string>
     <string name="editTextChooseUni">Select your university:</string>
     <string name="radioBtnSJSU">San Jose State University</string>
-    <string name="buttonChooseDone">DONE</string>
+    <string name="buttonChooseDone">CONTINUE</string>
     <string name="radioBtnOther">Other University</string>
     <string name="displayMessage">Congrats!</string>
+    <string name="textViewAlreadyUser">Already a user?</string>
+    <string name="buttonLogin">LOGIN</string>
+    <string name="textViewEnterUsername">Student ID:</string>
+    <string name="textViewEnterPassword">Password:</string>
+    <string name="editTextEnterUsername">012345678</string>
+    <string name="editTextEnterPassword">Password</string>
+    <string name="buttonSignIn">SIGN IN</string>
 </resources>

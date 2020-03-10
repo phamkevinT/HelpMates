@@ -37,4 +37,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(CHOSEN_UNI_MESSAGE, message);
         startActivity(intent);
     }
+
+    public void selectAlreadyUser(View view)
+    {
+        Intent intent = new Intent(this, LoginPageActivity.class);
+        startActivity(intent);
+    }
 }
