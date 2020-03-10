@@ -15,6 +15,10 @@
         <activity
             android:name=".SelectedUniversityActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginPageActivity"
+            android:parentActivityName=".MainActivity"
+            ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

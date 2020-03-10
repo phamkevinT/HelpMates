@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "52676221130",
+    "firebase_url": "https://cmpe133app.firebaseio.com",
+    "project_id": "cmpe133app",
+    "storage_bucket": "cmpe133app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52676221130:android:8b71926f128e9d97d57c33",
+        "android_client_info": {
+          "package_name": "edu.sjsu.cmpe133app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52676221130-sfhg526q8stkgla5bttd65namtu2j8r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAttnFLaA4ntHvphzvYNJ4MrXjOYRlBMcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52676221130-sfhg526q8stkgla5bttd65namtu2j8r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
