@@ -17,4 +17,10 @@
     <string name="btn_submit">Submit</string>
     <string name="passwordSetup">Configure your password</string>
     <string name="confirm_pass">"  Confirm password :"</string>
+    <string name="textViewCreatePost">Create post</string>
+    <string name="editTextCreatePost">What do you wanna share?</string>
+    <string name="textViewRequest">Is this post a service request?</string>
+    <string name="radioBtnRequestYes">Yes</string>
+    <string name="radioBtnRequestNo">No</string>
+    <string name="btnSubmitPost">Post</string>
 </resources>
