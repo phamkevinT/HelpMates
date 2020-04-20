@@ -1,13 +1,10 @@
 package edu.sjsu.cmpe133app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectedUniversityActivity extends AppCompatActivity {
 
@@ -18,7 +15,7 @@ public class SelectedUniversityActivity extends AppCompatActivity {
 
          Intent intent = getIntent();
          String message = intent.getStringExtra(MainActivity.CHOSEN_UNI_MESSAGE);
-         TextView textView = (TextView) findViewById(R.id.textView2);
+         TextView textView = findViewById(R.id.textView2);
 
          textView.setText(message);
     }
