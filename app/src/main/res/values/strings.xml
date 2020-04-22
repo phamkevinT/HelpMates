@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">cmpe133App</string>
+
+    <string name="app_name">HelpMates</string>
     <string name="editTextChooseUni">Select your university:</string>
     <string name="radioBtnSJSU">San Jose State University</string>
     <string name="buttonChooseDone">CONTINUE</string>
@@ -23,4 +24,9 @@
     <string name="radioBtnRequestYes">Yes</string>
     <string name="radioBtnRequestNo">No</string>
     <string name="btnSubmitPost">Post</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
+
