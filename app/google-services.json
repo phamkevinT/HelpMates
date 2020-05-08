@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "261957016258",
-    "firebase_url": "https://cmpechatroom.firebaseio.com",
-    "project_id": "cmpechatroom",
-    "storage_bucket": "cmpechatroom.appspot.com"
+    "project_number": "52676221130",
+    "firebase_url": "https://cmpe133app.firebaseio.com",
+    "project_id": "cmpe133app",
+    "storage_bucket": "cmpe133app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:261957016258:android:17903e5a719ca135a4f95b",
+        "mobilesdk_app_id": "1:52676221130:android:8b71926f128e9d97d57c33",
         "android_client_info": {
           "package_name": "edu.sjsu.cmpe133app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "261957016258-al1vjjtemnan1s81qtjhe0b6iuhu3nj9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "edu.sjsu.cmpe133app",
-            "certificate_hash": "0eb45760ecaa534fad46b0e874f9392efdf18803"
-          }
-        },
-        {
-          "client_id": "261957016258-s737r2dhc48rmr3nekvi9bh6c73e48td.apps.googleusercontent.com",
+          "client_id": "52676221130-sfhg526q8stkgla5bttd65namtu2j8r7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDkw_cUB7e2SJg8kfAICHJKCNz7rtqS5hE"
+          "current_key": "AIzaSyAttnFLaA4ntHvphzvYNJ4MrXjOYRlBMcM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "261957016258-s737r2dhc48rmr3nekvi9bh6c73e48td.apps.googleusercontent.com",
+              "client_id": "52676221130-sfhg526q8stkgla5bttd65namtu2j8r7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

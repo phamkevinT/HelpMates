@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +17,30 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+
+    public final int maxNumOfPosts = 10;
+    public final TextView[] postTextViews = new TextView[maxNumOfPosts];
+    private String[] postDbReference = new String[10];
+    private int numOfPosts;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    /*
+        Returns the number of posts currently posted on HomePage.
+        @return the current number of posts.
+     */
+    public int getNumOfPosts()
+    {
+        return this.numOfPosts;
+    }
+
 
     /**
      * Set the layout of the HomePageActivity to have the homepage layout
@@ -90,9 +112,28 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        TextView postTextView = (TextView) findViewById(R.id.textView8);
-        postTextView.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
-        Toast.makeText(this, "activity result", Toast.LENGTH_SHORT).show();
+        if (this.numOfPosts == 0)
+        {
+            TextView postTextView = (TextView) findViewById(R.id.textView8);
+            postTextView.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+            numOfPosts++;
+        }
+        else
+        {
+            TextView newPost = new TextView(this);
+            newPost.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+            LinearLayout homePageFrameLayout = (LinearLayout) findViewById(R.id.linearLayout);
+            postDbReference[numOfPosts] = "postNum" + Integer.toString(numOfPosts);
+            DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
+            myRef.setValue(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+            homePageFrameLayout.addView(newPost);
+            postTextViews[numOfPosts] = newPost;
+            numOfPosts++;
+            FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+            DatabaseReference myRef2 = database.getReference("message");
+
+            myRef.setValue("Hello, World!");
+        }
     }
 
     /**
