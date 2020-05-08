@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class CreatePostActivity extends AppCompatActivity {
 
     public static final String CREATE_POST_MESSAGE = "CreatePostActivity";
+    public static final String IS_REQUEST_POST = "CreatePostActivityRequestPost";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class CreatePostActivity extends AppCompatActivity {
         {
             Intent openHomePage = new Intent();
             openHomePage.putExtra(CREATE_POST_MESSAGE, postString);
+            openHomePage.putExtra(IS_REQUEST_POST, "true");
             setResult(1, openHomePage);
             finish();
         }

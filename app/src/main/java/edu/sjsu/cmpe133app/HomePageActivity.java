@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +29,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     public final int maxNumOfPosts = 10;
     public final TextView[] postTextViews = new TextView[maxNumOfPosts];
-    private String[] postDbReference = new String[10];
+    private String[] postDbReference = new String[maxNumOfPosts];
+    private boolean[] isRequestPost = new boolean[maxNumOfPosts];
     private int numOfPosts;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -69,7 +71,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Toast.makeText(this, getIntent().getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -112,28 +113,41 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (this.numOfPosts == 0)
-        {
-            TextView postTextView = (TextView) findViewById(R.id.textView8);
-            postTextView.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
-            numOfPosts++;
-        }
-        else
-        {
-            TextView newPost = new TextView(this);
-            newPost.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
-            LinearLayout homePageFrameLayout = (LinearLayout) findViewById(R.id.linearLayout);
-            postDbReference[numOfPosts] = "postNum" + Integer.toString(numOfPosts);
-            DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
-            myRef.setValue(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
-            homePageFrameLayout.addView(newPost);
-            postTextViews[numOfPosts] = newPost;
-            numOfPosts++;
-            FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-            DatabaseReference myRef2 = database.getReference("message");
 
-            myRef.setValue("Hello, World!");
+        LinearLayout mainFrameLayout = (LinearLayout) findViewById(R.id.fragment_container);
+
+        //Creating a new textview for new post
+        TextView newPost = new TextView(this);
+
+        //Setting the text to textview from user input
+        newPost.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+
+        //Creating a linearlayout for new post
+        LinearLayout homePageFrameLayout = new LinearLayout(this);
+        homePageFrameLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //Adding a reference to save post's text to db
+        postDbReference[numOfPosts] = "postNum" + Integer.toString(numOfPosts);
+        DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
+        myRef.setValue(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+
+        //Adding the new textview to the new linearlayout
+        homePageFrameLayout.addView(newPost);
+
+        if (data.getStringExtra(CreatePostActivity.IS_REQUEST_POST).equals("true"))
+        {
+            Button acceptBtn = new Button(this);
+            acceptBtn.setText("Accept");
+            homePageFrameLayout.addView(acceptBtn);
+
+            Button rejectBtn = new Button(this);
+            rejectBtn.setText("Reject");
+            homePageFrameLayout.addView(rejectBtn);
         }
+
+        mainFrameLayout.addView(homePageFrameLayout, 0);
+        postTextViews[numOfPosts] = newPost;
+        numOfPosts++;
     }
 
     /**
