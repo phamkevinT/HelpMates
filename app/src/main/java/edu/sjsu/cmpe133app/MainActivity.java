@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         RadioGroup uniChooser = (RadioGroup) findViewById(R.id.radioGroup);
         Intent intent = new Intent(this, SelectedUniversityActivity.class);
-        Intent openHomepage = new Intent(this, HomePageActivity.class);
+        Intent openHomepage = new Intent(this, SignupActivity.class);
         RadioButton sjsu = (RadioButton) findViewById(R.id.radioButton3);
         RadioButton other = (RadioButton) findViewById(R.id.radioButton4);
         String message = "Test Message";

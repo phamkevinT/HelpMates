@@ -50,6 +50,23 @@ public class LoginPageActivity extends AppCompatActivity {
         // Still need to check if the user is already signed in.
     }
 
+    private boolean checkEmailVerification(){
+        FirebaseUser firebaseUser = mFireBaseAuth.getInstance().getCurrentUser();
+        Boolean emailFlag = firebaseUser.isEmailVerified();
+        boolean result;
+
+        if (emailFlag){
+            startActivity(new Intent(LoginPageActivity.this, HomePageActivity.class));
+            result = true;
+        }else{
+            Toast.makeText(this,"Verify your email",Toast.LENGTH_SHORT).show();
+            result= false;
+        }
+
+        return result;
+
+    }
+
     public void signInButtonClick(View view) {
         EditText editTextUsername = (EditText) findViewById(R.id.editText);
         EditText editTextPassword = (EditText) findViewById(R.id.editText2);
@@ -69,9 +86,10 @@ public class LoginPageActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mFireBaseAuth.getCurrentUser();
                             // Update UI
+                            checkEmailVerification();
                             Toast.makeText(LoginPageActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(homePage);
+                           // startActivity(homePage);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
