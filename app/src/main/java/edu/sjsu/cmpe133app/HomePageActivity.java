@@ -3,6 +3,8 @@ package edu.sjsu.cmpe133app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        Toast.makeText(this, getIntent().getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -73,6 +76,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void createPostMethod(View view)
+    {
+        Intent createPostAct = new Intent(this, CreatePostActivity.class);
+        startActivityForResult(createPostAct, 1);
+    }
+
+    protected void onActivityResult (int requestCode,
+                                     int resultCode,
+                                     Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        TextView postTextView = (TextView) findViewById(R.id.textView8);
+        postTextView.setText(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
+        Toast.makeText(this, "activity result", Toast.LENGTH_SHORT).show();
     }
 
     /**

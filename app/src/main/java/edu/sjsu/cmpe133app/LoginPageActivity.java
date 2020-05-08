@@ -3,6 +3,7 @@ package edu.sjsu.cmpe133app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class LoginPageActivity extends AppCompatActivity {
         String email = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
 
+        final Intent homePage = new Intent(this, HomePageActivity.class);
         // Do not have to parse anything. Just check database and verify if user exists here
 
         mFireBaseAuth.signInWithEmailAndPassword(email, password)
@@ -48,6 +50,7 @@ public class LoginPageActivity extends AppCompatActivity {
                             // Update UI
                             Toast.makeText(LoginPageActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
+                            startActivity(homePage);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
