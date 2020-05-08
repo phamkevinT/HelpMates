@@ -2,6 +2,7 @@ package edu.sjsu.cmpe133app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +19,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -41,6 +45,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public int getNumOfPosts()
     {
         return this.numOfPosts;
+    }
+
+
+    private void retrievePosts()
+    {
+
     }
 
 
@@ -70,6 +80,33 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        //get instance of db
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        // Read from the database
+        for (int i = 0; i < maxNumOfPosts; i++)
+        {
+                DatabaseReference myRef = database.getReference("postNum" + Integer.toString(i));
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get Post object and use the values to update the UI
+                        String post = dataSnapshot.getValue(String.class);
+                        if (post != null)
+                            addPost(post, true);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        // ...
+                    }
+                };
+                myRef.addListenerForSingleValueEvent(postListener);
+        }
+
 
     }
 
@@ -105,6 +142,44 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     {
         Intent createPostAct = new Intent(this, CreatePostActivity.class);
         startActivityForResult(createPostAct, 1);
+    }
+
+    private void addPost(String postString, boolean isRequestPost)
+    {
+        LinearLayout mainFrameLayout = (LinearLayout) findViewById(R.id.fragment_container);
+
+        //Creating a new textview for new post
+        TextView newPost = new TextView(this);
+
+        //Setting the text to textview from user input
+        newPost.setText(postString);
+
+        //Creating a linearlayout for new post
+        LinearLayout homePageFrameLayout = new LinearLayout(this);
+        homePageFrameLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //Adding a reference to save post's text to db
+        postDbReference[numOfPosts] = "postNum" + Integer.toString(numOfPosts);
+        DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
+        myRef.setValue(postString);
+
+        //Adding the new textview to the new linearlayout
+        homePageFrameLayout.addView(newPost);
+
+        if (isRequestPost)
+        {
+            Button acceptBtn = new Button(this);
+            acceptBtn.setText("Accept");
+            homePageFrameLayout.addView(acceptBtn);
+
+            Button rejectBtn = new Button(this);
+            rejectBtn.setText("Reject");
+            homePageFrameLayout.addView(rejectBtn);
+        }
+
+        mainFrameLayout.addView(homePageFrameLayout, 0);
+        postTextViews[numOfPosts] = newPost;
+        numOfPosts++;
     }
 
     protected void onActivityResult (int requestCode,
