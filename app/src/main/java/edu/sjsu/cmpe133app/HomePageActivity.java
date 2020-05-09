@@ -19,6 +19,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private boolean[] isRequestPost = new boolean[maxNumOfPosts];
     private int numOfPosts;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mFirebaseAuth.getCurrentUser();
+    private Button AcceptButtons[] = new Button[maxNumOfPosts];
+    private Button RejectButtons[] = new Button[maxNumOfPosts];
 
     /*
         Returns the number of posts currently posted on HomePage.
@@ -47,10 +53,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         return this.numOfPosts;
     }
 
-
-    private void retrievePosts()
+    private String getUserDisplayName()
     {
-
+        String name = user.getEmail();
+        name = name.substring(0, name.indexOf('@'));
+        String firstName = name.substring(0, name.indexOf('.'));
+        firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1, firstName.length());
+        String lastName = name.substring(name.indexOf('.') + 1, name.length());
+        lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1, lastName.length());
+        return firstName + " " + lastName;
     }
 
 
@@ -110,6 +121,21 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     }
 
+    private void onAcceptRequestClick(View view)
+    {
+        Button btn = (Button) view;
+        btn.setEnabled(false);
+        Intent moveToChat = new Intent(this, ChatActivity.class);
+        startActivity(moveToChat);
+
+    }
+
+    private void onRejectRequestClick(View view)
+    {
+        Button btn = (Button) view;
+        btn.setEnabled(false);
+    }
+
     /**
      * For Navigation bar Fragments.
      * Opens when pressed
@@ -118,7 +144,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_message:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
+                Intent openHomepageAgain = new Intent(this, HomePageActivity.class);
+                startActivity(openHomepageAgain);
                 break;
             case R.id.nav_chat:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).commit();
@@ -152,7 +179,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         TextView newPost = new TextView(this);
 
         //Setting the text to textview from user input
-        newPost.setText(postString);
+        newPost.setText(getUserDisplayName() + ": " + postString);
 
         //Creating a linearlayout for new post
         LinearLayout homePageFrameLayout = new LinearLayout(this);
@@ -170,11 +197,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         {
             Button acceptBtn = new Button(this);
             acceptBtn.setText("Accept");
+            acceptBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    onAcceptRequestClick(view);
+                }
+            });
             homePageFrameLayout.addView(acceptBtn);
+            AcceptButtons[numOfPosts] = acceptBtn;
 
             Button rejectBtn = new Button(this);
             rejectBtn.setText("Reject");
+            rejectBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    onRejectRequestClick(view);
+                }
+            });
             homePageFrameLayout.addView(rejectBtn);
+            RejectButtons[numOfPosts] = rejectBtn;
         }
 
         mainFrameLayout.addView(homePageFrameLayout, 0);
