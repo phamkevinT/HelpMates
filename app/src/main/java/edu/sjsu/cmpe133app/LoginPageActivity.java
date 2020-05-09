@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +27,7 @@ public class LoginPageActivity extends AppCompatActivity {
 
     private FirebaseAuth mFireBaseAuth;
     private static final String TAG = LoginPageActivity.class.getName();
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,14 @@ public class LoginPageActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
 
+        //Reset Password
+        forgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginPageActivity.this, ResetPassword.class));
+            }
+        });
 
         // Still need to check if the user is already signed in.
     }
