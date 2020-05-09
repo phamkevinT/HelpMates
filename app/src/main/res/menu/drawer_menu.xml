@@ -13,8 +13,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_message"
-            android:icon="@drawable/ic_message"
-            android:title="Message" />
+            android:icon="@drawable/ic_feed"
+            android:title="Feed" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
