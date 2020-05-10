@@ -45,7 +45,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private Button RejectButtons[] = new Button[maxNumOfPosts];
     public static String[] isRequest = new String[]{"", "", "", "", "", "", "", "", "", ""};
 
-    /*
+    /**
         Returns the number of posts currently posted on HomePage.
         @return the current number of posts.
      */
@@ -54,6 +54,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         return this.numOfPosts;
     }
 
+    /**
+     * Computes the user's name using their SJSU email
+     */
     private String getUserDisplayName()
     {
         String name = user.getEmail();
@@ -111,6 +114,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Hamburger menu toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
                 drawer,
@@ -122,8 +126,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         //get instance of db
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
 
         // Read from the database
         getRequests();
@@ -191,24 +193,30 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     }
 
     /**
-     * For Navigation bar Fragments.
+     * For Navigation bar activities.
      * Opens when pressed
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            // Opens the homepage / feed
             case R.id.nav_message:
                 Intent openHomepageAgain = new Intent(this, HomePageActivity.class);
                 startActivity(openHomepageAgain);
                 break;
+
+            // Opens the chat feature
             case R.id.nav_chat:
                 Intent openChat = new Intent(this, ChatActivity.class);
                 startActivity(openChat);
                 break;
+
+            // Opens the profile feature
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                 break;
 
+            // Logs out the user
             case R.id.nav_lock:
                 mFirebaseAuth = FirebaseAuth.getInstance();
                 mFirebaseAuth.signOut();
