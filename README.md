@@ -25,3 +25,6 @@ San Jose State University
 - Share
 - Log Out
 
+## Build with 
+
+Java,XML,NoSQL database on cloud Firebase, 
