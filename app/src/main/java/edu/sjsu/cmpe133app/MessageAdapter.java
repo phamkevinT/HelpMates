@@ -1,5 +1,10 @@
 package edu.sjsu.cmpe133app;
 
+/**
+ *  Adapted code from Scaledrone's database tutorial
+ *  www.scaledrone.com/blog/android-chat-tutorial/
+ */
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -13,7 +18,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class defines how we render the rows in the chat
+ */
 public class MessageAdapter extends BaseAdapter {
 
     List<Message> messages = new ArrayList<Message>();
@@ -44,17 +51,23 @@ public class MessageAdapter extends BaseAdapter {
         return i;
     }
 
+    /**
+     * Creates the bubbles and row for the inputs of users
+     */
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         MessageViewHolder holder = new MessageViewHolder();
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Message message = messages.get(i);
 
+        // User's Message
         if (message.isBelongsToCurrentUser()) {
             convertView = messageInflater.inflate(R.layout.my_message, null);
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
             holder.messageBody.setText(message.getText());
+
+        // Someone's Message
         } else {
             convertView = messageInflater.inflate(R.layout.their_message, null);
             holder.avatar = (View) convertView.findViewById(R.id.avatar);
