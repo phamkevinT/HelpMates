@@ -48,6 +48,15 @@ public class LoginPageActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
 
+        // Still need to check if the user is already signed in.
+        FirebaseUser user = mFireBaseAuth.getCurrentUser();
+        if (user != null)
+        {
+            finish();
+            startActivity(new Intent(LoginPageActivity.this,HomePageActivity.class));
+        }
+
+
         //Reset Password
         forgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
         forgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +66,8 @@ public class LoginPageActivity extends AppCompatActivity {
             }
         });
 
-        // Still need to check if the user is already signed in.
+
+
     }
 
     private boolean checkEmailVerification(){
