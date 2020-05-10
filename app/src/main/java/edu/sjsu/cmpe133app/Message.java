@@ -1,5 +1,8 @@
 package edu.sjsu.cmpe133app;
 
+/**
+ * This class has the information to render a single message
+ */
 public class Message {
     private String text; // message body
     private MemberData memberData; // data of the user that sent this message
