@@ -36,7 +36,11 @@ public class CreatePostActivity extends AppCompatActivity {
         }
         else if (radioNo.isChecked())
         {
-
+            Intent openHomePage = new Intent();
+            openHomePage.putExtra(CREATE_POST_MESSAGE, postString);
+            openHomePage.putExtra(IS_REQUEST_POST, "false");
+            setResult(1, openHomePage);
+            finish();
         }
     }
 }
