@@ -148,13 +148,17 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(openHomepageAgain);
                 break;
             case R.id.nav_chat:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).commit();
                 Intent openChat = new Intent(this, ChatActivity.class);
                 startActivity(openChat);
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                 break;
+
+            case R.id.nav_lock:
+                Intent logout = new Intent(this, SignupActivity.class);
+                startActivity(logout);
+               break;
 
             // Displays as a toast for now
             case R.id.nav_share:
