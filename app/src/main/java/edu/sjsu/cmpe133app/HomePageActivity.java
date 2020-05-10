@@ -156,7 +156,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 break;
 
             case R.id.nav_lock:
-                Intent logout = new Intent(this, SignupActivity.class);
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                mFirebaseAuth.signOut();
+                finish();
+                Intent logout = new Intent(this, MainActivity.class);
                 startActivity(logout);
                break;
 
