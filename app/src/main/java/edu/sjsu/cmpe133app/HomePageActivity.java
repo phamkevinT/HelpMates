@@ -43,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private FirebaseUser user = mFirebaseAuth.getCurrentUser();
     private Button AcceptButtons[] = new Button[maxNumOfPosts];
     private Button RejectButtons[] = new Button[maxNumOfPosts];
+    public static String[] isRequest = new String[]{"", "", "", "", "", "", "", "", "", ""};
 
     /*
         Returns the number of posts currently posted on HomePage.
@@ -64,6 +65,33 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         return firstName + " " + lastName;
     }
 
+    private void getRequests()
+    {
+        for (int i = 0; i < maxNumOfPosts; i++)
+        {
+            DatabaseReference isItRequest = database.getReference("isRequest" + Integer.toString(i));
+
+            ValueEventListener isItRequestListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String post = dataSnapshot.getValue(String.class);
+                    if (post != null)
+                    {
+                        isRequest[Integer.parseInt(dataSnapshot.getKey().substring(9))] = post;
+                        Toast.makeText(HomePageActivity.this, "Receive: " + post, Toast.LENGTH_SHORT).show();
+                        System.out.println(post);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+
+            isItRequest.addListenerForSingleValueEvent(isItRequestListener);
+        }
+    }
 
     /**
      * Set the layout of the HomePageActivity to have the homepage layout
@@ -96,26 +124,52 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
+
         // Read from the database
+        getRequests();
+
         for (int i = 0; i < maxNumOfPosts; i++)
         {
                 DatabaseReference myRef = database.getReference("postNum" + Integer.toString(i));
-                ValueEventListener postListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get Post object and use the values to update the UI
-                        String post = dataSnapshot.getValue(String.class);
-                        if (post != null)
-                            addPost(post, true);
-                    }
+                if (isRequest[i].equals("true"))
+                {
+                    ValueEventListener postListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get Post object and use the values to update the UI
+                            String post = dataSnapshot.getValue(String.class);
+                            if (post != null)
+                                addPost(post, true);
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
-                        // ...
-                    }
-                };
-                myRef.addListenerForSingleValueEvent(postListener);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            // ...
+                        }
+                    };
+                    myRef.addListenerForSingleValueEvent(postListener);
+                }
+                else
+                {
+                    ValueEventListener postListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get Post object and use the values to update the UI
+                            String post = dataSnapshot.getValue(String.class);
+                            if (post != null)
+                                addPost(post, false);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            // ...
+                        }
+                    };
+                    myRef.addListenerForSingleValueEvent(postListener);
+                }
+
         }
 
 
@@ -156,7 +210,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 break;
 
             case R.id.nav_lock:
-                Intent logout = new Intent(this, SignupActivity.class);
+                mFirebaseAuth = FirebaseAuth.getInstance();
+                mFirebaseAuth.signOut();
+                finish();
+                Intent logout = new Intent(this, MainActivity.class);
                 startActivity(logout);
                break;
 
@@ -194,6 +251,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
         myRef.setValue(postString);
 
+        DatabaseReference isItRequest = database.getReference("isRequest" + Integer.toString(numOfPosts));
+
         //Adding the new textview to the new linearlayout
         homePageFrameLayout.addView(newPost);
 
@@ -218,6 +277,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             });
             homePageFrameLayout.addView(rejectBtn);
             RejectButtons[numOfPosts] = rejectBtn;
+            isRequest[numOfPosts] = "true";
+            isItRequest.setValue("true");
+        }
+        else
+        {
+            isRequest[numOfPosts] = "false";
+            isItRequest.setValue("false");
         }
 
         mainFrameLayout.addView(homePageFrameLayout, 0);
@@ -249,6 +315,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         DatabaseReference myRef = database.getReference(postDbReference[numOfPosts]);
         myRef.setValue(data.getStringExtra(CreatePostActivity.CREATE_POST_MESSAGE));
 
+        DatabaseReference isItRequest = database.getReference("isRequest" + Integer.toString(numOfPosts));
+
         //Adding the new textview to the new linearlayout
         homePageFrameLayout.addView(newPost);
 
@@ -261,11 +329,20 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             Button rejectBtn = new Button(this);
             rejectBtn.setText("Reject");
             homePageFrameLayout.addView(rejectBtn);
+            isRequest[numOfPosts] = "true";
+            isItRequest.setValue("true");
+        }
+        else
+        {
+            isRequest[numOfPosts] = "false";
+            isItRequest.setValue("false");
         }
 
         mainFrameLayout.addView(homePageFrameLayout, 0);
         postTextViews[numOfPosts] = newPost;
         numOfPosts++;
+        finish();
+        startActivity(getIntent());
     }
 
     /**
