@@ -16,12 +16,12 @@ San Jose State University
 3. Run the app. 
 
 ## Features 
-Choose University
-Log In
-Sign In 
-Post
-Accept or Deny request
-Chat
-Share
-Log Out
+- Choose University
+- Log In
+- Sign In 
+- Post
+- Accept or Deny request
+- Chat
+- Share
+- Log Out
 
