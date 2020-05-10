@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.scaledrone.lib.Listener;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
@@ -21,16 +23,19 @@ import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity implements RoomListener {
 
-    // replace this with a real channelID from Scaledrone dashboard
+    // This is the unique ID from scaledrone
     private String channelID = "ipMzmSH4duXUHmyJ";
     private String roomName = "observable-room";
     private EditText editText;
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mFirebaseAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Creates the chat activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
 
@@ -42,6 +47,9 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
 
+        /**
+         *      Creating database channel for sending text
+         */
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
             @Override
@@ -67,6 +75,9 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         });
     }
 
+    /**
+            Sending a Message through Scaledrone
+     */
     public void sendMessage(View view) {
         String message = editText.getText().toString();
         if (message.length() > 0) {
@@ -85,6 +96,9 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
         System.err.println(ex);
     }
 
+    /**
+     *      Method from scaledrone to receive the user's message
+     */
     @Override
     public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
         final ObjectMapper mapper = new ObjectMapper();
@@ -103,7 +117,7 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
             e.printStackTrace();
         }
     }
-
+/*
     private String getRandomName() {
         String[] adjs = {"Kevin", "Sharan", "Anh", "Natalia"};
         String[] nouns = {"Student, Professor"};
@@ -112,6 +126,28 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
                         "_" +
                         nouns[(int) Math.floor(Math.random() * nouns.length)]
         );
+    }
+*/
+
+    /**
+     * Displays the user's name, taken from firebase
+     */
+    private String getRandomName() {
+        return getUserDisplayName();
+    }
+
+    /**
+     * Computes the user's name, taken from their SJSU email
+     */
+    private String getUserDisplayName()
+    {
+        String name = user.getEmail();
+        name = name.substring(0, name.indexOf('@'));
+        String firstName = name.substring(0, name.indexOf('.'));
+        firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1, firstName.length());
+        String lastName = name.substring(name.indexOf('.') + 1, name.length());
+        lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1, lastName.length());
+        return firstName + " " + lastName;
     }
 
     private String getRandomColor() {
@@ -124,6 +160,9 @@ public class ChatActivity extends AppCompatActivity implements RoomListener {
     }
 }
 
+/**
+ * Used to display users in scaledrone room
+ */
 class MemberData {
     private String name;
     private String color;
