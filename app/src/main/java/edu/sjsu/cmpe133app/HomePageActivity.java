@@ -81,7 +81,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     if (post != null)
                     {
                         isRequest[Integer.parseInt(dataSnapshot.getKey().substring(9))] = post;
-                        Toast.makeText(HomePageActivity.this, "Receive: " + post, Toast.LENGTH_SHORT).show();
                         System.out.println(post);
                     }
                 }
