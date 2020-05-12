@@ -14,6 +14,8 @@
     <string name="editTextEnterPassword">Password</string>
     <string name="buttonSignIn">SIGN IN</string>
 
+    <color name="lightgrey">#63b7af</color>
+
     <string name="lblPassword">"  Enter Your Password :"</string>
     <string name="btn_submit">Submit</string>
     <string name="passwordSetup">Configure your password</string>
