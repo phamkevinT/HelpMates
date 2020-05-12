@@ -213,7 +213,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
             // Opens the profile feature
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                Intent openPro = new Intent(this, openProfile.class);
+                startActivity(openPro);
                 break;
 
             // Logs out the user
