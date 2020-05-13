@@ -36,7 +36,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     }
-
+    //Validate User name
     private boolean validateUsername() {
         String usernameInput = userName.getText().toString().trim();
 
@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
-
+    //Validate user email. sjsu.edu email only
     private boolean validateEmail(){
 
         String emailInput = userEmail.getText().toString().trim();
@@ -71,6 +71,7 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
+    //Validate password, at least 6 character
     private boolean validatePassword (){
 
         String passwordInput = userPassword.getText().toString().trim();
@@ -87,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-
+    //Send email verification
     private void sendEmailVerification(){
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser !=null)
@@ -98,7 +99,9 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this,"Succesfully Registerd",Toast.LENGTH_SHORT).show();
                         firebaseAuth.signOut();
                         finish();
-                        startActivity(new Intent(SignupActivity.this, LoginPageActivity.class));
+
+                        Intent openLoginpage = new Intent(SignupActivity.this, LoginPageActivity.class);
+                        startActivity(openLoginpage);
                     }
                 }
             });
@@ -125,7 +128,7 @@ public class SignupActivity extends AppCompatActivity {
                                 //Toast.makeText(SignupActivity.this, "registration successful", Toast.LENGTH_SHORT).show();
                                 //startActivity(new Intent(SignupActivity.this, LoginPageActivity.class));
                             }else{
-                                Toast.makeText(SignupActivity.this, "registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                                 //startActivity(new Intent(SignupActivity.this, LoginPageActivity.class));
                             }
 
@@ -139,7 +142,9 @@ public class SignupActivity extends AppCompatActivity {
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, LoginPageActivity.class));
+
+                Intent openLogin = new Intent(SignupActivity.this, LoginPageActivity.class);
+                startActivity(openLogin);
             }
         });
 

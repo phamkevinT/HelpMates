@@ -49,13 +49,6 @@ public class LoginPageActivity extends AppCompatActivity {
         myRef.setValue("Hello, World!");
 
         // Still need to check if the user is already signed in.
-        FirebaseUser user = mFireBaseAuth.getCurrentUser();
-        if (user != null)
-        {
-            finish();
-            startActivity(new Intent(LoginPageActivity.this,HomePageActivity.class));
-        }
-
 
         //Reset Password
         forgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
@@ -76,7 +69,8 @@ public class LoginPageActivity extends AppCompatActivity {
         boolean result;
 
         if (emailFlag){
-            startActivity(new Intent(LoginPageActivity.this, HomePageActivity.class));
+            Intent openHomepage = new Intent(this, HomePageActivity.class);
+            startActivity(openHomepage);
             result = true;
         }else{
             Toast.makeText(this,"Verify your email",Toast.LENGTH_SHORT).show();
