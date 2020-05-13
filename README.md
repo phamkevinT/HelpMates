@@ -16,9 +16,10 @@ San Jose State University
 3. Run the app. 
 
 ## Features 
-- Choose University
-- Log In
-- Sign In 
+- Choose University: A user in this app is able to select the university they attend. We are currently only working with San Jose University therefore that's the only option.
+- Log In: A user with a registered and authenticated account is able to log in with an email (@sjsu.edu) and password.
+- Sign In: A user is able to register to helpmates as long as they have a (@sjsu.edu) email adress and is verified latter on by an email sent to them.
+- Reset Password: If user forget's password they will need to reset it by clicking on the reset bottom and providing their (@sjsu.edu) email adress where they will recieve a link to choose a new password.
 - Post
 - Accept or Deny request
 - Chat
