@@ -28,3 +28,7 @@ San Jose State University
 ## Build with 
 
 Java,XML,NoSQL database on cloud Firebase, 
+
+## Guides & Tutorials
+[Scaledrone - Realtime Database](https://dashboard.scaledrone.com/channels/ipMzmSH4duXUHmyJ?tab=debugger) <br>
+[Navigation Bar](https://codinginflow.com/tutorials/android/navigation-drawer/part-1-menu-activity-theme)
