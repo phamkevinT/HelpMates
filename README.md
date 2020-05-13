@@ -10,6 +10,12 @@ Team #16 Members
   
 San Jose State University
 
+## About
+
+This application allows users to post food-run requests and have other students volunteerly pick up the request at their convenience. For example, one student can make a request for food at McDonalds and a free nearby student can pick up that request. The two can chat through the application on where to meet and exchange payment for the food or any tip from the requester if wanted. 
+
+
+
 ## Instructions in how to run the app using Android Studio.
 1. Dowload AndroidStudio and SKD tools at https://developer.android.com/studio 
 2. Select emulator of choise.
