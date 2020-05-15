@@ -18,11 +18,14 @@ This application allows users to post food-run requests and have other students 
 
 # Instructions in how to run the app using Android Studio.
    Dowload AndroidStudio and SKD tools at https://developer.android.com/studio 
+   
    Clone this repository
+   
    ```
    git clone https://github.com/sharan-patil/cmpe133App.git
    ```
    Select emulator of choice
+   
    Run the app 
 
 # Features 
