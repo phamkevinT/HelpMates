@@ -27,47 +27,47 @@ This application allows users to post food-run requests and have other students 
 
 # Features 
 
-##Choose University
+## Choose University
 
   A user in this app is able to select the university they attend. We are currently only working with San Jose University therefore that's the only option.
   
-##Log In
+## Log In
 
 A user with a registered and authenticated account is able to log in with an email (@sjsu.edu) and password.
 
-##Sign In
+## Sign In
 
 A user is able to register to helpmates as long as they have a (@sjsu.edu) email adress and is verified latter on by an email sent to them.
 
-##Nav menu
+## Nav menu
 
 Navigation menu exists after the user is logged in. 
 
-##Reset Password
+## Reset Password
 
 If user forget password they will need to reset it by clicking on the reset bottom and providing their (@sjsu.edu) email adress where they will recieve a link to choose a new password.
 
-##Homepage
+## Homepage
 
 After the user is logged in, they will land on the homepage where they can see the feed and create posts if they want. The homepage is connected with the navigation menu which allows them to see different features.
 
-##Post
+## Post
 
 User will be able to create a post. User will have a choice of selecting if it is a request post. Posts will be updated on Homepage where everyone can see. 
 
-##Accept or Deny request
+## Accept or Deny request
 
 If user create a request post, there will be Accept/Deny button below the post for other users if they want to take the request or deny it. 
 
-##Chat
+## Chat
 
 Chat will allow users to connect with other when a post is accepted. 
 
-##Share
+## Share
 
 This feature will let user to share posts again on homepage and/or other platforms.
 
-##Log Out
+## Log Out
 
 User will be securely logged out of the app.
 
